@@ -3,6 +3,7 @@
 namespace Asperansa\Data\Bitrix;
 
 use Asperansa\Data\Common\ObjectManagerInterface;
+use Asperansa\Tools\Data\Cache\CacheManager;
 
 /**
  * Менеджер элементов инфоблоков
@@ -77,6 +78,7 @@ final class IBlockElementManager implements ObjectManagerInterface
      * @param array $selectedFields Список выбираемых полей (в формате BX)
      * @param bool $selectProperties Нужно ли выбирать свойсвта
      * @param mixed $navStartParams Ограничения выборки
+     * @param int $cacheLifetime Время жизни кеша
      *
      * @return array
      */
@@ -85,15 +87,35 @@ final class IBlockElementManager implements ObjectManagerInterface
         array $orderBy = array('sort' => 'asc'),
         array $selectedFields = array('*', 'PROPERTY_*'),
         $selectProperties = true,
-        $navStartParams = null
+        $navStartParams = null,
+        $cacheLifetime = 3600
     ) {
 
-        return $this->repository->findBy(
-            $filter,
-            $orderBy,
-            $selectedFields,
-            $selectProperties,
-            $navStartParams
+        $cacheId ='ibe_manager';
+        $cacheId .= serialize(
+            array(
+                $filter,
+                $orderBy,
+                $selectedFields,
+                $selectProperties,
+                $navStartParams
+            )
         );
+
+        $cache = new CacheManager();
+
+        if (!($response = $cache->get($cacheId, $cacheLifetime))) {
+            $response = $this->repository->findBy(
+                $filter,
+                $orderBy,
+                $selectedFields,
+                $selectProperties,
+                $navStartParams
+            );
+
+            $cache->set($cacheId, $response, array(), $cacheLifetime);
+        }
+
+        return $response;
     }
 }
