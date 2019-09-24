@@ -18,7 +18,7 @@ $manager = IBlockElementManager::getInstance();
 // Studios dictionary
 $studios = [];
 
-$dbItems = $manager->getRepository()->rawFindBy(
+$studios = $manager->findBy(
     [
         'IBLOCK_ID'            => 1,
         'ACTIVE'               => 'Y',
@@ -31,12 +31,6 @@ $dbItems = $manager->getRepository()->rawFindBy(
         'ID',
         'NAME',
         'PROPERTY_STUDIO_ID',
-    ]
+    ],
+    true
 );
-
-while ($arItem = $dbItems->Fetch()) {
-    $studios[$arItem['PROPERTY_STUDIO_ID_VALUE']] = [
-        'id'   => $arItem['ID'],
-        'name' => $arItem['NAME'],
-    ];
-}
