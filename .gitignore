@@ -1,0 +1,85 @@
+# --- files ---
+/.idea/
+
+# --- core ---
+/bitrix/*
+!/bitrix/components
+/bitrix/components/bitrix
+!/bitrix/modules
+/bitrix/modules/*
+!/bitrix/templates
+!/bitrix/php_interface
+/bitrix/php_interface/after_connect.php
+/bitrix/php_interface/after_connect_d7.php
+/bitrix/php_interface/dbconn.php
+!/bitrix/admin/
+/bitrix/admin/*
+
+# --- project modules ---
+!/bitrix/modules/project*
+
+# --- project admin scripts ---
+# any project pages
+!/bitrix/admin/project*
+# 1c exchange custom script
+!/bitrix/admin/1c_exchange_custom.php
+
+# --- media files ---
+/upload
+/video
+/files
+/i
+
+# --- log files ---
+/_logs/
+*.log
+log.txt
+
+# --- archives ---
+*.tar*
+*.zip*
+*.rar*
+
+# --- mysql files ---
+/*.sql
+
+# --- other ---
+*.tmp
+/_*
+/test/
+/t.php
+test.php
+robots.txt
+sitemap*.xml
+/*.txt
+web.config
+.htaccess.restore
+.htaccess
+.htsecure
+*old*
+*/*cache*/
+local/cron/pids/*
+
+cgi-bin/
+google*.html
+mywot*.html
+wmail*.html
+yandex*.html
+php.ini
+
+restore.php
+bitrix_server_test.php
+bitrixsetup.php
+
+phpMyAdmin
+pma
+adminer.php
+adminer.css
+
+bx_1c_import.php
+bx_1c_import_lite.php
+/webstat
+
+# allows fast hide any files or folders from under git's eyes
+*_gitignore_*
+/local/lib/Dictionary/config_ext.ini
